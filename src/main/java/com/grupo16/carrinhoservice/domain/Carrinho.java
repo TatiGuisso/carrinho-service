@@ -4,6 +4,7 @@ import java.util.List;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
@@ -11,8 +12,13 @@ import lombok.ToString;
 @ToString
 public class Carrinho {
 	
+	@Setter
 	private Long id;
 	private List<Produto> produtos;
-	private Double valorTotal;
+
+	public Double getValorTotal() {
+		return 500D; //TODO iterar na lista de produtos e calcular o valor total.
+	}
+	
 
 }
