@@ -1,6 +1,6 @@
 package com.grupo16.carrinhoservice.gateway.controller.json;
 
-import com.grupo16.carrinhoservice.domain.Produto;
+import com.grupo16.carrinhoservice.domain.Item;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,24 +13,24 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProdutoJson {
+public class ItemJson {
 	
 	private Long id;
 	private Integer quantidade;
 	private Double precoUnitario;
 	
-	public Produto mapperToDomain() {
-		return Produto.builder()
+	public Item mapperToDomain() {
+		return Item.builder()
 				.id(id)
 				.quantidade(quantidade)
 				.precoUnitario(precoUnitario)
 				.build();
 	}
 	
-	public ProdutoJson(Produto produto) {
-		id = produto.getId();
-		quantidade = produto.getQuantidade();
-		precoUnitario = produto.getPrecoUnitario();
+	public ItemJson(Item tem) {
+		id = tem.getId();
+		quantidade = tem.getQuantidade();
+		precoUnitario = tem.getPrecoUnitario();
 	}
 
 }

@@ -16,12 +16,12 @@ import lombok.ToString;
 public class CarrinhoJson {
 	
 	private Long id;
-	private List<ProdutoJson> produtos;
+	private List<ItemJson> itens;
 	private Double valorTotal;
 	
 	public CarrinhoJson(Carrinho carrinho) {
 		id = carrinho.getId();
-		produtos = carrinho.getProdutos().stream().map(ProdutoJson::new).toList();
+		itens = carrinho.getItens().stream().map(ItemJson::new).toList();
 		valorTotal = carrinho.getValorTotal();
 	}
 

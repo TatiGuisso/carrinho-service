@@ -12,7 +12,7 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produto {
+public class Item {
 	
 	private Long id;
 	private Integer quantidade;

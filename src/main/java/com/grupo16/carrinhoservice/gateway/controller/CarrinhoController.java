@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.grupo16.carrinhoservice.domain.Carrinho;
-import com.grupo16.carrinhoservice.domain.Produto;
+import com.grupo16.carrinhoservice.domain.Item;
 import com.grupo16.carrinhoservice.gateway.controller.json.CarrinhoJson;
-import com.grupo16.carrinhoservice.gateway.controller.json.ProdutoJson;
+import com.grupo16.carrinhoservice.gateway.controller.json.ItemJson;
 import com.grupo16.carrinhoservice.usecase.CriarAlterarCarrinhoUseCase;
 
 import lombok.AllArgsConstructor;
@@ -26,13 +26,13 @@ public class CarrinhoController {
 	
 	@PostMapping
 	public CarrinhoJson salvar(
-			@RequestBody List<ProdutoJson> produtosJson) {
-		log.trace("Start produtoJson={}", produtosJson);
+			@RequestBody List<ItemJson> itensJson) {
+		log.trace("Start itensJson={}", itensJson);
 		
-		List<Produto> produtos = produtosJson.stream().map(p -> p.mapperToDomain()).toList();
+		List<Item> itens = itensJson.stream().map(p -> p.mapperToDomain()).toList();
 		
 		Carrinho carrinho = Carrinho.builder()
-				.produtos(produtos)
+				.itens(itens)
 				.build();
 		
 		Carrinho carrinhoSalvo = criarAlterarCarrinhoUseCase.salvar(carrinho);
