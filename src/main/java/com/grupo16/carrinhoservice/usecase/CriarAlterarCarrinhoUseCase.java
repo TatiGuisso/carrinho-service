@@ -27,7 +27,7 @@ public class CriarAlterarCarrinhoUseCase {
 		
 		for (Item itemComPreco : listaComPreco) {
 			for (Item itemSemPreco : carrinho.getItens()) {
-				if(itemComPreco.getId().equals(itemSemPreco.getId())) {
+				if(itemComPreco.getIdProduto().equals(itemSemPreco.getIdProduto())) {
 					itemSemPreco.setPrecoUnitario(itemComPreco.getPrecoUnitario());
 					break;
 				}

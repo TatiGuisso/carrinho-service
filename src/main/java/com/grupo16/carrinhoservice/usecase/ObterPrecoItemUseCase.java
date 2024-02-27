@@ -16,9 +16,9 @@ public class ObterPrecoItemUseCase {
 		
 		//Mock: será removido
 		List<Item> listaComPreco = new ArrayList<>();
-		listaComPreco.add(new Item(1L, 1, 10.0));
-        listaComPreco.add(new Item(2L, 2, 15.0));
-        listaComPreco.add(new Item(3L, 1, 20.0));
+		listaComPreco.add(Item.builder().idProduto(2L).quantidade(1).precoUnitario(25.0).build());
+        listaComPreco.add(Item.builder().idProduto(3L).quantidade(1).precoUnitario(18.0).build());
+        listaComPreco.add(Item.builder().idProduto(1L).quantidade(1).precoUnitario(31.0).build());
 		
 		
 		return listaComPreco;

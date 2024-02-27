@@ -16,12 +16,14 @@ import lombok.ToString;
 public class ItemJson {
 	
 	private Long id;
+	private Long idProduto;
 	private Integer quantidade;
 	private Double precoUnitario;
 	
 	public Item mapperToDomain() {
 		return Item.builder()
 				.id(id)
+				.idProduto(idProduto)
 				.quantidade(quantidade)
 				.precoUnitario(precoUnitario)
 				.build();

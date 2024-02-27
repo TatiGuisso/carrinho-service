@@ -2,6 +2,7 @@ package com.grupo16.carrinhoservice.gateway.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,14 +25,16 @@ public class CarrinhoController {
 	
 	private CriarAlterarCarrinhoUseCase criarAlterarCarrinhoUseCase;
 	
-	@PostMapping
+	@PostMapping("{idUsuario}")
 	public CarrinhoJson salvar(
+			@PathVariable(name = "idUsuario") Long idUsuario,
 			@RequestBody List<ItemJson> itensJson) {
 		log.trace("Start itensJson={}", itensJson);
 		
 		List<Item> itens = itensJson.stream().map(p -> p.mapperToDomain()).toList();
 		
 		Carrinho carrinho = Carrinho.builder()
+				.idUsuario(idUsuario)
 				.itens(itens)
 				.build();
 		

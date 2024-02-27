@@ -15,10 +15,12 @@ import lombok.ToString;
 public class Item {
 	
 	private Long id;
+	private Long idProduto;
 	private Integer quantidade;
 	
 	@Setter
 	private Double precoUnitario;
+	private Carrinho carrinho;
 	
 	public Double getPrecoTotal() {
 		return precoUnitario * quantidade;

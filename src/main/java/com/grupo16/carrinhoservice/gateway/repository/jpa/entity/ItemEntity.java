@@ -1,7 +1,5 @@
 package com.grupo16.carrinhoservice.gateway.repository.jpa.entity;
 
-import java.util.List;
-
 import com.grupo16.carrinhoservice.domain.Carrinho;
 import com.grupo16.carrinhoservice.domain.Item;
 
@@ -9,7 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,31 +16,36 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="Carrinho")
+@Table(name="Item")
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarrinhoEntity {
-	
+public class ItemEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long idUsuario;
+	private Long idProduto;
 	
-	@OneToMany(mappedBy = "carrinho")
-	private List<ItemEntity> itens;
+	@ManyToOne
+	@JoinColumn(name="\"idCarrinho\"")
+	private CarrinhoEntity carrinho;
 	
-	public CarrinhoEntity(Carrinho carrinho) {
-		id = carrinho.getId();
-		idUsuario = carrinho.getIdUsuario();
+	public ItemEntity(Item item, CarrinhoEntity carrinhoEntity) {
+		id = item.getId();
+		idProduto = item.getIdProduto();
+		carrinho = carrinhoEntity;
 	}
 	
-	public Carrinho mapperToDomain() {
-		return Carrinho.builder()
+	public Item mapperToDomain() {
+		return Item.builder()
 				.id(id)
-				.idUsuario(idUsuario)
+				.idProduto(idProduto)
+				.carrinho(Carrinho.builder()
+						.id(carrinho.getId())
+						.build())
 				.build();
 	}
-
+	
 }
