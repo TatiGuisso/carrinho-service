@@ -20,10 +20,8 @@ public class CriarAlterarCarrinhoUseCase {
 
 	public Carrinho salvar(Carrinho carrinho) {
 		
+		//FIXME remover mock do obterPrecoItemUseCase e chamar Produto-Service.
 		List<Item> listaComPreco = obterPrecoItemUseCase.obter(carrinho.getItens());
-		
-		//TODO pegar precos do produtosComPreco e colocar no carrinho
-		//TODO pegar idCarrinho colocar no carrinho
 		
 		for (Item itemComPreco : listaComPreco) {
 			for (Item itemSemPreco : carrinho.getItens()) {

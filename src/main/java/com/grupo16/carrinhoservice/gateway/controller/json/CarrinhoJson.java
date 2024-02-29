@@ -15,12 +15,14 @@ import lombok.ToString;
 @AllArgsConstructor
 public class CarrinhoJson {
 	
-	private Long id;
+	private Long idCarrinho;
+	private Long idUsuario;
 	private List<ItemJson> itens;
 	private Double valorTotal;
 	
 	public CarrinhoJson(Carrinho carrinho) {
-		id = carrinho.getId();
+		idCarrinho = carrinho.getId();
+		idUsuario = carrinho.getIdUsuario();
 		itens = carrinho.getItens().stream().map(ItemJson::new).toList();
 		valorTotal = carrinho.getValorTotal();
 	}

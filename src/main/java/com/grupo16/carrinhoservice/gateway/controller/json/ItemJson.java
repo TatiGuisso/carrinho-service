@@ -15,24 +15,25 @@ import lombok.ToString;
 @ToString
 public class ItemJson {
 	
-	private Long id;
+	private Long idItem;
 	private Long idProduto;
 	private Integer quantidade;
 	private Double precoUnitario;
 	
 	public Item mapperToDomain() {
 		return Item.builder()
-				.id(id)
+				.id(idItem)
 				.idProduto(idProduto)
 				.quantidade(quantidade)
 				.precoUnitario(precoUnitario)
 				.build();
 	}
 	
-	public ItemJson(Item tem) {
-		id = tem.getId();
-		quantidade = tem.getQuantidade();
-		precoUnitario = tem.getPrecoUnitario();
+	public ItemJson(Item item) {
+		idItem = item.getId();
+		idProduto = item.getIdProduto();
+		quantidade = item.getQuantidade();
+		precoUnitario = item.getPrecoUnitario();
 	}
 
 }

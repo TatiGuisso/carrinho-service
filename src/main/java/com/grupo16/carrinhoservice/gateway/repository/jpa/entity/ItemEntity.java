@@ -27,6 +27,7 @@ public class ItemEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Long idProduto;
+	private Integer quantidade;
 	
 	@ManyToOne
 	@JoinColumn(name="\"idCarrinho\"")
@@ -35,6 +36,7 @@ public class ItemEntity {
 	public ItemEntity(Item item, CarrinhoEntity carrinhoEntity) {
 		id = item.getId();
 		idProduto = item.getIdProduto();
+		quantidade = item.getQuantidade();
 		carrinho = carrinhoEntity;
 	}
 	
@@ -42,6 +44,7 @@ public class ItemEntity {
 		return Item.builder()
 				.id(id)
 				.idProduto(idProduto)
+				.quantidade(quantidade)
 				.carrinho(Carrinho.builder()
 						.id(carrinho.getId())
 						.build())

@@ -3,7 +3,6 @@ package com.grupo16.carrinhoservice.gateway.repository.jpa.entity;
 import java.util.List;
 
 import com.grupo16.carrinhoservice.domain.Carrinho;
-import com.grupo16.carrinhoservice.domain.Item;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

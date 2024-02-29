@@ -1,9 +1,7 @@
 package com.grupo16.carrinhoservice.gateway.repository.mysql;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.grupo16.carrinhoservice.domain.Carrinho;
 import com.grupo16.carrinhoservice.domain.Item;
@@ -24,22 +22,27 @@ public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 	private ItemRepository itemRepository;
 
 	@Override
+	@Transactional
 	public Long salvar(Carrinho carrinho) {
 		
-		CarrinhoEntity carrinhoEntity = new CarrinhoEntity(carrinho);
-		CarrinhoEntity carrinhoSalvo = carrinhoRepository.save(carrinhoEntity);
-		
-		if(!carrinho.getItens().isEmpty()) {
-			List<ItemEntity> itensEntity = new ArrayList<>();
-			for (Item item : carrinho.getItens()) {
-				itensEntity.add(new ItemEntity(item, carrinhoSalvo));
+		try {
+			CarrinhoEntity carrinhoEntity = new CarrinhoEntity(carrinho);
+			CarrinhoEntity carrinhoSalvo = carrinhoRepository.save(carrinhoEntity);
+			
+			if(!carrinho.getItens().isEmpty()) {
+				for (Item item : carrinho.getItens()) {
+					Long idItem = itemRepository.save(new ItemEntity(item, carrinhoSalvo)).getId();
+					item.setId(idItem);
+				}
 			}
 			
-			itemRepository.saveAll(itensEntity);
+			return carrinhoSalvo.getId();
 			
+		} catch (Exception e) {
+			throw new RuntimeException();
+			//FIXME colocar exception correta
 		}
 		
-		return carrinhoSalvo.getId();
 	}
 	
 

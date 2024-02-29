@@ -40,8 +40,6 @@ public class CarrinhoController {
 		
 		Carrinho carrinhoSalvo = criarAlterarCarrinhoUseCase.salvar(carrinho);
 		
-		//TODO fazer o mapper do domain para json 
-		
 		CarrinhoJson carrinhoSalvoJson = new CarrinhoJson(carrinhoSalvo);
 		
 		log.trace("End carrinhoSalvoJson={}", carrinhoSalvoJson);

@@ -18,7 +18,7 @@ public class Carrinho {
 	private List<Item> itens;
 
 	public Double getValorTotal() {
-		return 500D; //TODO iterar na lista de produtos e calcular o valor total.
+		return itens.stream().mapToDouble(Item::getPrecoTotal).sum();
 	}
 	
 
