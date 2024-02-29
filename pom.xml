@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.grupo16</groupId>
 	<artifactId>carrinho-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-RELEASE</version>
 	<name>carrinho-service</name>
 	<description>Gestão de Carrinho de Compras</description>
 	<properties>
