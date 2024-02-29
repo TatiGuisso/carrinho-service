@@ -1,17 +1,21 @@
 package com.grupo16.carrinhoservice.usecase;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.grupo16.carrinhoservice.domain.Carrinho;
 import com.grupo16.carrinhoservice.domain.Item;
 import com.grupo16.carrinhoservice.gateway.CarrinhoRepositoryGateway;
+import com.grupo16.carrinhoservice.usecase.exception.CarrinhoNaoEncontradoException;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CriarAlterarCarrinhoUseCase {
 	
 	private CarrinhoRepositoryGateway carrinhoRepositoryGateway;
@@ -33,11 +37,20 @@ public class CriarAlterarCarrinhoUseCase {
 		}
 		
 		Long idCarrinho = carrinhoRepositoryGateway.salvar(carrinho);
-		
-		
 		carrinho.setId(idCarrinho);
-		
 		return carrinho;
+	}
+
+	public void alterar(Carrinho carrinho) {
+		
+		Optional<Carrinho> carrinhoOp = carrinhoRepositoryGateway.obter(carrinho);
+		
+		if(carrinhoOp.isEmpty()) {
+			log.warn("Carrinho não encontrado. carrinho={}", carrinho);
+			throw new CarrinhoNaoEncontradoException();
+		}
+		
+		
 	}
 
 }

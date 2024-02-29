@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class CarrinhoController {
 	public CarrinhoJson salvar(
 			@PathVariable(name = "idUsuario") Long idUsuario,
 			@RequestBody List<ItemJson> itensJson) {
-		log.trace("Start itensJson={}", itensJson);
+		log.trace("Start idUsuario={}, itensJson={}", idUsuario, itensJson);
 		
 		List<Item> itens = itensJson.stream().map(p -> p.mapperToDomain()).toList();
 		
@@ -44,6 +45,24 @@ public class CarrinhoController {
 		
 		log.trace("End carrinhoSalvoJson={}", carrinhoSalvoJson);
 		return carrinhoSalvoJson;
+	}
+	
+	@PutMapping("{id}/{idUsuario}")
+	public void alterar(
+			@PathVariable(name = "id") Long idCarrinho,
+			@PathVariable(name = "idUsuario") Long idUsuario,
+			@RequestBody List<ItemJson> itensJson) {
+		log.trace("Start idCarrinho={}, idUsuario={}, itensJson={}", idCarrinho, idUsuario, itensJson);
+		
+		List<Item> itens = itensJson.stream().map(ItemJson::mapperToDomain).toList();
+		
+		Carrinho carrinho = Carrinho.builder()
+				.id(idCarrinho)
+				.idUsuario(idUsuario)
+				.itens(itens)
+				.build();
+		
+		criarAlterarCarrinhoUseCase.alterar(carrinho);
 	}
 
 }

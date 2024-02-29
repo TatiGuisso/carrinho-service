@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.grupo16.carrinhoservice.domain.Carrinho;
 import com.grupo16.carrinhoservice.domain.Item;
 import com.grupo16.carrinhoservice.gateway.CarrinhoRepositoryGateway;
+import com.grupo16.carrinhoservice.gateway.exception.ErroAoAcessarBancoDeDadosException;
 import com.grupo16.carrinhoservice.gateway.repository.jpa.CarrinhoRepository;
 import com.grupo16.carrinhoservice.gateway.repository.jpa.ItemRepository;
 import com.grupo16.carrinhoservice.gateway.repository.jpa.entity.CarrinhoEntity;
@@ -39,8 +40,7 @@ public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 			return carrinhoSalvo.getId();
 			
 		} catch (Exception e) {
-			throw new RuntimeException();
-			//FIXME colocar exception correta
+			throw new ErroAoAcessarBancoDeDadosException();
 		}
 		
 	}
