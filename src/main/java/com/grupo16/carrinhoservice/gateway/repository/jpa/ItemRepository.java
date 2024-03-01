@@ -6,4 +6,6 @@ import com.grupo16.carrinhoservice.gateway.repository.jpa.entity.ItemEntity;
 
 public interface ItemRepository extends JpaRepository<ItemEntity, Long>{
 
+	void deleteByCarrinhoId(Long id);
+
 }

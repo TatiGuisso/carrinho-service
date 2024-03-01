@@ -8,6 +8,8 @@ public interface CarrinhoRepositoryGateway {
 
 	Long salvar(Carrinho carrinho);
 
-	Optional<Carrinho> obter(Carrinho carrinho);
+	Optional<Carrinho> obterPorIdAndIdUsuario(Carrinho carrinho);
+	
+	void alterar(Carrinho carrinho);
 
 }

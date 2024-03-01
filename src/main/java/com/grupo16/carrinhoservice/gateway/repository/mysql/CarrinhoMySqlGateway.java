@@ -1,5 +1,7 @@
 package com.grupo16.carrinhoservice.gateway.repository.mysql;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +15,11 @@ import com.grupo16.carrinhoservice.gateway.repository.jpa.entity.CarrinhoEntity;
 import com.grupo16.carrinhoservice.gateway.repository.jpa.entity.ItemEntity;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 	
 	private CarrinhoRepository carrinhoRepository;
@@ -30,20 +34,55 @@ public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 			CarrinhoEntity carrinhoEntity = new CarrinhoEntity(carrinho);
 			CarrinhoEntity carrinhoSalvo = carrinhoRepository.save(carrinhoEntity);
 			
-			if(!carrinho.getItens().isEmpty()) {
-				for (Item item : carrinho.getItens()) {
-					Long idItem = itemRepository.save(new ItemEntity(item, carrinhoSalvo)).getId();
-					item.setId(idItem);
-				}
-			}
-			
+			salvarItens(carrinho, carrinhoSalvo);
 			return carrinhoSalvo.getId();
 			
 		} catch (Exception e) {
+			log.error(e.getMessage(),e);
 			throw new ErroAoAcessarBancoDeDadosException();
 		}
+	}
+
+	@Override
+	public Optional<Carrinho> obterPorIdAndIdUsuario(Carrinho carrinho) {
+		try {
+			
+			Optional<Carrinho> carrinhoOp = Optional.empty();
+			
+			Optional<CarrinhoEntity> carrinhoEntityOp = 
+					carrinhoRepository.findByIdAndIdUsuario(carrinho.getId(),carrinho.getIdUsuario());
+			
+			if(carrinhoEntityOp.isPresent()) {
+				CarrinhoEntity carrinhoEntity = carrinhoEntityOp.get();
+				Carrinho carrinhoEncontrado = carrinhoEntity.mapperToDomain();
+				carrinhoOp = Optional.of(carrinhoEncontrado);
+			}
+			
+			return carrinhoOp;
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+			throw new ErroAoAcessarBancoDeDadosException();
+		}
+	}
+
+	@Override
+	@Transactional
+	public void alterar(Carrinho carrinho) {
 		
+		itemRepository.deleteByCarrinhoId(carrinho.getId());
+		
+		CarrinhoEntity carrinhoEntity = new CarrinhoEntity(carrinho);
+		salvarItens(carrinho, carrinhoEntity);	
 	}
 	
+
+	private void salvarItens(Carrinho carrinho, CarrinhoEntity carrinhoSalvo) {
+		if(!carrinho.getItens().isEmpty()) {
+			for (Item item : carrinho.getItens()) {
+				Long idItem = itemRepository.save(new ItemEntity(item, carrinhoSalvo)).getId();
+				item.setId(idItem);
+			}
+		}
+	}
 
 }
