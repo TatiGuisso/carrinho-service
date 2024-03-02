@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.grupo16.carrinhoservice.domain.Carrinho;
 import com.grupo16.carrinhoservice.domain.Item;
+import com.grupo16.carrinhoservice.domain.Status;
 import com.grupo16.carrinhoservice.gateway.controller.json.CarrinhoJson;
 import com.grupo16.carrinhoservice.gateway.controller.json.ItemJson;
 import com.grupo16.carrinhoservice.usecase.CriarAlterarCarrinhoUseCase;
@@ -37,6 +38,7 @@ public class CarrinhoController {
 		
 		Carrinho carrinho = Carrinho.builder()
 				.idUsuario(idUsuario)
+				.status(Status.ATIVO)
 				.itens(itens)
 				.build();
 		
@@ -60,6 +62,7 @@ public class CarrinhoController {
 		Carrinho carrinho = Carrinho.builder()
 				.id(idCarrinho)
 				.idUsuario(idUsuario)
+				.status(Status.ATIVO)
 				.itens(itens)
 				.build();
 		
@@ -69,6 +72,9 @@ public class CarrinhoController {
 	@GetMapping("{idUsuario}")
 	public Carrinho obter(@PathVariable(name = "idUsuario") Long idUsuario) {
 		//TODO implementar obter carrinho ativo.
+		
+		
+		
 		return null;
 	}
 

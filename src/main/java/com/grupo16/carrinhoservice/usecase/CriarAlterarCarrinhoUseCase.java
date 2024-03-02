@@ -1,8 +1,6 @@
 package com.grupo16.carrinhoservice.usecase;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -47,6 +45,7 @@ public class CriarAlterarCarrinhoUseCase {
 		Carrinho carrinhoAlterado = Carrinho.builder()
 				.id(carrinhoEncontrado.getId())
 				.idUsuario(carrinhoEncontrado.getIdUsuario())
+				.status(carrinho.getStatus())
 				.itens(carrinho.getItens())
 				.build();
 

@@ -15,6 +15,7 @@ public class Carrinho {
 	@Setter
 	private Long id;
 	private Long idUsuario;
+	private Status status;
 	private List<Item> itens;
 
 	public Double getValorTotal() {

@@ -3,6 +3,7 @@ package com.grupo16.carrinhoservice.gateway.repository.jpa.entity;
 import java.util.List;
 
 import com.grupo16.carrinhoservice.domain.Carrinho;
+import com.grupo16.carrinhoservice.domain.Status;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +28,7 @@ public class CarrinhoEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Long idUsuario;
+	private int status;
 	
 	@OneToMany(mappedBy = "carrinho")
 	private List<ItemEntity> itens;
@@ -34,12 +36,14 @@ public class CarrinhoEntity {
 	public CarrinhoEntity(Carrinho carrinho) {
 		id = carrinho.getId();
 		idUsuario = carrinho.getIdUsuario();
+		status = carrinho.getStatus().ordinal();
 	}
 	
 	public Carrinho mapperToDomain() {
 		return Carrinho.builder()
 				.id(id)
 				.idUsuario(idUsuario)
+				.status(Status.getByOrdinal(status))
 				.build();
 	}
 
