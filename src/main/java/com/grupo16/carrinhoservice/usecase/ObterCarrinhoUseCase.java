@@ -18,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ObterCarrinhoUseCase {
 	
 	private CarrinhoRepositoryGateway carrinhoRepositoryGateway;
+	
+	private ObterPrecoItemUseCase obterPrecoItemUseCase;
 
 	public Carrinho obterPorIdAndIdUsuario(Carrinho carrinho) {
 
@@ -38,7 +40,11 @@ public class ObterCarrinhoUseCase {
 			log.warn("Carrinho do usuario não encontrado. idUsuario={}", idUsuario);
 			throw new CarrinhoNaoEncontradoException();
 		}
-		return carrinhoOp.get();
+		
+		Carrinho carrinho = carrinhoOp.get();
+		obterPrecoItemUseCase.obter(carrinho); 
+		
+		return carrinho;
 	}
 
 }

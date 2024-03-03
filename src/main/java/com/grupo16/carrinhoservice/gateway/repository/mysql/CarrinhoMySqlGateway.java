@@ -1,6 +1,5 @@
 package com.grupo16.carrinhoservice.gateway.repository.mysql;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -81,7 +80,6 @@ public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 	@Override
 	public Optional<Carrinho> obterPorIdUsuarioEStatus(Long idUsuario, Status ativo) {
 		try {
-			
 			Integer status = getByEnum(ativo);
 			Optional<Carrinho> carrinhoOp = Optional.empty();
 			
@@ -94,8 +92,6 @@ public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 			log.error(e.getMessage(), e);
 			throw new ErroAoAcessarBancoDeDadosException();
 		}
-		
-		
 	}
 
 	private Optional<Carrinho> checarSeCarrinhoEstaPresente(Optional<Carrinho> carrinhoOp,
