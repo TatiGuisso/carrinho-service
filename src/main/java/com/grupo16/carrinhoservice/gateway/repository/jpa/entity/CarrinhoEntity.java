@@ -3,6 +3,7 @@ package com.grupo16.carrinhoservice.gateway.repository.jpa.entity;
 import java.util.List;
 
 import com.grupo16.carrinhoservice.domain.Carrinho;
+import com.grupo16.carrinhoservice.domain.Item;
 import com.grupo16.carrinhoservice.domain.Status;
 
 import jakarta.persistence.Entity;
@@ -40,10 +41,24 @@ public class CarrinhoEntity {
 	}
 	
 	public Carrinho mapperToDomain() {
+		List<Item> itensDomain = this.itens.stream().map(ItemEntity::mapperToDomain).toList();
 		return Carrinho.builder()
 				.id(id)
 				.idUsuario(idUsuario)
 				.status(Status.getByOrdinal(status))
+				.itens(itensDomain)
+				.build();
+	}
+
+	public Carrinho mapperCarrinhoComItensToDomain(List<ItemEntity> itensEntities) {
+		
+		List<Item> itensDomain = this.itens.stream().map(ItemEntity::mapperToDomain).toList();
+		
+		return Carrinho.builder()
+				.id(id)
+				.idUsuario(idUsuario)
+				.status(Status.getByOrdinal(status))
+				.itens(itensDomain)
 				.build();
 	}
 

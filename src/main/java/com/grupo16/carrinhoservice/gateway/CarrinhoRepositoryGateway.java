@@ -3,6 +3,7 @@ package com.grupo16.carrinhoservice.gateway;
 import java.util.Optional;
 
 import com.grupo16.carrinhoservice.domain.Carrinho;
+import com.grupo16.carrinhoservice.domain.Status;
 
 public interface CarrinhoRepositoryGateway {
 
@@ -11,5 +12,7 @@ public interface CarrinhoRepositoryGateway {
 	Optional<Carrinho> obterPorIdAndIdUsuario(Carrinho carrinho);
 	
 	void alterar(Carrinho carrinho);
+
+	Optional<Carrinho> obterPorIdUsuarioEStatus(Long idUsuario, Status ativo);
 
 }

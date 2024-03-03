@@ -16,6 +16,7 @@ import com.grupo16.carrinhoservice.domain.Status;
 import com.grupo16.carrinhoservice.gateway.controller.json.CarrinhoJson;
 import com.grupo16.carrinhoservice.gateway.controller.json.ItemJson;
 import com.grupo16.carrinhoservice.usecase.CriarAlterarCarrinhoUseCase;
+import com.grupo16.carrinhoservice.usecase.ObterCarrinhoUseCase;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,8 @@ import lombok.extern.slf4j.Slf4j;
 public class CarrinhoController {
 	
 	private CriarAlterarCarrinhoUseCase criarAlterarCarrinhoUseCase;
+	
+	private ObterCarrinhoUseCase obterCarrinhoUseCase;
 	
 	@PostMapping("{idUsuario}")
 	public CarrinhoJson salvar(
@@ -70,12 +73,16 @@ public class CarrinhoController {
 	}
 	
 	@GetMapping("{idUsuario}")
-	public Carrinho obter(@PathVariable(name = "idUsuario") Long idUsuario) {
-		//TODO implementar obter carrinho ativo.
+	public CarrinhoJson obter(@PathVariable(name = "idUsuario") Long idUsuario) {
+		log.trace("Start idUsuario={}", idUsuario);
+
+		Carrinho carrinho = obterCarrinhoUseCase.obterPorIdUsuarioEStatus(idUsuario, Status.ATIVO);
 		
+		CarrinhoJson carrinhoJson = new CarrinhoJson(carrinho);
 		
+		log.trace("End carrinhoJson={}", carrinhoJson);
 		
-		return null;
+		return carrinhoJson;
 	}
 
 }

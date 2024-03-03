@@ -1,5 +1,6 @@
 package com.grupo16.carrinhoservice.gateway.repository.mysql;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -7,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.grupo16.carrinhoservice.domain.Carrinho;
 import com.grupo16.carrinhoservice.domain.Item;
+import com.grupo16.carrinhoservice.domain.Status;
 import com.grupo16.carrinhoservice.gateway.CarrinhoRepositoryGateway;
 import com.grupo16.carrinhoservice.gateway.exception.ErroAoAcessarBancoDeDadosException;
 import com.grupo16.carrinhoservice.gateway.repository.jpa.CarrinhoRepository;
@@ -52,11 +54,7 @@ public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 			Optional<CarrinhoEntity> carrinhoEntityOp = 
 					carrinhoRepository.findByIdAndIdUsuario(carrinho.getId(),carrinho.getIdUsuario());
 			
-			if(carrinhoEntityOp.isPresent()) {
-				CarrinhoEntity carrinhoEntity = carrinhoEntityOp.get();
-				Carrinho carrinhoEncontrado = carrinhoEntity.mapperToDomain();
-				carrinhoOp = Optional.of(carrinhoEncontrado);
-			}
+			carrinhoOp = checarSeCarrinhoEstaPresente(carrinhoOp, carrinhoEntityOp);
 			
 			return carrinhoOp;
 		} catch (Exception e) {
@@ -68,13 +66,47 @@ public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 	@Override
 	@Transactional
 	public void alterar(Carrinho carrinho) {
-		
-		itemRepository.deleteByCarrinhoId(carrinho.getId());
-		
-		CarrinhoEntity carrinhoEntity = new CarrinhoEntity(carrinho);
-		salvarItens(carrinho, carrinhoEntity);	
+		try {
+			itemRepository.deleteByCarrinhoId(carrinho.getId());
+			
+			CarrinhoEntity carrinhoEntity = new CarrinhoEntity(carrinho);
+			salvarItens(carrinho, carrinhoEntity);	
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new ErroAoAcessarBancoDeDadosException();
+		}
 	}
 	
+	@Override
+	public Optional<Carrinho> obterPorIdUsuarioEStatus(Long idUsuario, Status ativo) {
+		try {
+			
+			Integer status = getByEnum(ativo);
+			Optional<Carrinho> carrinhoOp = Optional.empty();
+			
+			Optional<CarrinhoEntity> carrinhoEntityOp = carrinhoRepository.findByIdUsuarioAndStatus(idUsuario, status);
+			
+			carrinhoOp = checarSeCarrinhoEstaPresente(carrinhoOp, carrinhoEntityOp);
+			
+			return carrinhoOp;
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new ErroAoAcessarBancoDeDadosException();
+		}
+		
+		
+	}
+
+	private Optional<Carrinho> checarSeCarrinhoEstaPresente(Optional<Carrinho> carrinhoOp,
+			Optional<CarrinhoEntity> carrinhoEntityOp) {
+		if(carrinhoEntityOp.isPresent()) {
+			CarrinhoEntity carrinhoEntity = carrinhoEntityOp.get();
+			Carrinho carrinhoEncontrado = carrinhoEntity.mapperToDomain();
+			carrinhoOp = Optional.of(carrinhoEncontrado);
+		}
+		return carrinhoOp;
+	}
 
 	private void salvarItens(Carrinho carrinho, CarrinhoEntity carrinhoSalvo) {
 		if(!carrinho.getItens().isEmpty()) {
@@ -83,6 +115,13 @@ public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 				item.setId(idItem);
 			}
 		}
+	}
+	
+	private Integer getByEnum(Status status) {
+		if(Status.ATIVO.equals(status)) {
+			return 0;
+		}
+		return 1;
 	}
 
 }
