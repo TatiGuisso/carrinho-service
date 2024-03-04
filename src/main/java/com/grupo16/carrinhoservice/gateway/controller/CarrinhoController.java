@@ -72,11 +72,11 @@ public class CarrinhoController {
 		criarAlterarCarrinhoUseCase.alterar(carrinho);
 	}
 	
-	@GetMapping("{idUsuario}")
-	public CarrinhoJson obter(@PathVariable(name = "idUsuario") Long idUsuario) {
-		log.trace("Start idUsuario={}", idUsuario);
+	@GetMapping("{id}")
+	public CarrinhoJson obter(@PathVariable(name = "id") Long idCarrinho) {
+		log.trace("Start idCarrinho={}", idCarrinho);
 
-		Carrinho carrinho = obterCarrinhoUseCase.obterPorIdUsuarioEStatus(idUsuario, Status.ATIVO);
+		Carrinho carrinho = obterCarrinhoUseCase.obterPorIdEStatus(idCarrinho, Status.ATIVO);
 		
 		CarrinhoJson carrinhoJson = new CarrinhoJson(carrinho);
 		

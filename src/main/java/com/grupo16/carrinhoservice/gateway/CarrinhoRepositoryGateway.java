@@ -13,6 +13,6 @@ public interface CarrinhoRepositoryGateway {
 	
 	void alterar(Carrinho carrinho);
 
-	Optional<Carrinho> obterPorIdUsuarioEStatus(Long idUsuario, Status ativo);
+	Optional<Carrinho> obterPorIdEStatus(Long idUsuario, Status ativo);
 
 }
