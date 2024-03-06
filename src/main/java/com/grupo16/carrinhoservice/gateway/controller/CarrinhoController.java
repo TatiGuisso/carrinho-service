@@ -3,6 +3,7 @@ package com.grupo16.carrinhoservice.gateway.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -83,6 +84,14 @@ public class CarrinhoController {
 		log.trace("End carrinhoJson={}", carrinhoJson);
 		
 		return carrinhoJson;
+	}
+	
+	@PatchMapping("{id}")
+	public void inativar(@PathVariable(name = "id") Long idCarrinho) {
+		log.trace("Start idCarrinho={}", idCarrinho);
+		
+		criarAlterarCarrinhoUseCase.inativar(idCarrinho);
+		
 	}
 
 }

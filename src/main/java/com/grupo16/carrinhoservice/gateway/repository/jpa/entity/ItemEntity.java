@@ -3,6 +3,7 @@ package com.grupo16.carrinhoservice.gateway.repository.jpa.entity;
 import com.grupo16.carrinhoservice.domain.Carrinho;
 import com.grupo16.carrinhoservice.domain.Item;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +31,7 @@ public class ItemEntity {
 	private Integer quantidade;
 	
 	@ManyToOne
-	@JoinColumn(name="\"idCarrinho\"")
+	@JoinColumn(name="idCarrinho")
 	private CarrinhoEntity carrinho;
 	
 	public ItemEntity(Item item, CarrinhoEntity carrinhoEntity) {

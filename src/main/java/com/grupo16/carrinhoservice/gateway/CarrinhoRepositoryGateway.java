@@ -15,4 +15,6 @@ public interface CarrinhoRepositoryGateway {
 
 	Optional<Carrinho> obterPorIdEStatus(Long idUsuario, Status ativo);
 
+	void inativar(Carrinho carrinho);
+
 }

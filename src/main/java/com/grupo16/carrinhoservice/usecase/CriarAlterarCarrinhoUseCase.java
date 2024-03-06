@@ -3,6 +3,7 @@ package com.grupo16.carrinhoservice.usecase;
 import org.springframework.stereotype.Service;
 
 import com.grupo16.carrinhoservice.domain.Carrinho;
+import com.grupo16.carrinhoservice.domain.Status;
 import com.grupo16.carrinhoservice.gateway.CarrinhoRepositoryGateway;
 
 import lombok.AllArgsConstructor;
@@ -35,6 +36,18 @@ public class CriarAlterarCarrinhoUseCase {
 				.build();
 
 		carrinhoRepositoryGateway.alterar(carrinhoAlterado);		
+	}
+
+	public void inativar(Long idCarrinho) {
+		Carrinho carrinhoEncontrado = obterCarrinhoUseCase.obterPorIdEStatus(idCarrinho, Status.ATIVO);
+		
+		Carrinho carrinho = Carrinho.builder()
+				.id(idCarrinho)
+				.idUsuario(carrinhoEncontrado.getIdUsuario())
+				.status(Status.INATIVO)
+				.build();
+		
+		carrinhoRepositoryGateway.inativar(carrinho);
 	}
 
 }

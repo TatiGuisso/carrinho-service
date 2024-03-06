@@ -78,12 +78,12 @@ public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 	}
 	
 	@Override
-	public Optional<Carrinho> obterPorIdEStatus(Long idCarrinho, Status ativo) {
+	public Optional<Carrinho> obterPorIdEStatus(Long idCarrinho, Status status) {
 		try {
-			Integer status = getByEnum(ativo);
+			Integer statusInt = getByEnum(status);
 			Optional<Carrinho> carrinhoOp = Optional.empty();
 			
-			Optional<CarrinhoEntity> carrinhoEntityOp = carrinhoRepository.findByIdAndStatus(idCarrinho, status);
+			Optional<CarrinhoEntity> carrinhoEntityOp = carrinhoRepository.findByIdAndStatus(idCarrinho, statusInt);
 			
 			carrinhoOp = checarSeCarrinhoEstaPresente(carrinhoOp, carrinhoEntityOp);
 			
@@ -92,6 +92,21 @@ public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 			log.error(e.getMessage(), e);
 			throw new ErroAoAcessarBancoDeDadosException();
 		}
+	}
+	
+	@Override
+	public void inativar(Carrinho carrinho) {
+		try {
+			
+			CarrinhoEntity carrinhoEntity = new CarrinhoEntity(carrinho);
+			
+			carrinhoRepository.save(carrinhoEntity);
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new ErroAoAcessarBancoDeDadosException();
+		}
+		
 	}
 
 	private Optional<Carrinho> checarSeCarrinhoEstaPresente(Optional<Carrinho> carrinhoOp,
