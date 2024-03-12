@@ -1,9 +1,11 @@
 package com.grupo16.carrinhoservice.gateway;
 
-import com.grupo16.carrinhoservice.gateway.http.produto.json.ProdutoJson;
+import java.util.List;
+
+import com.grupo16.carrinhoservice.domain.Item;
 
 public interface ProdutoServiceGateway {
 	
-	ProdutoJson obterPorId(Long id);
+	List<Item> obterPorId(List<Long> id);
 
 }

@@ -1,7 +1,11 @@
 package com.grupo16.carrinhoservice.gateway.http.produto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
+import com.grupo16.carrinhoservice.domain.Item;
 import com.grupo16.carrinhoservice.exception.ErrorAoAcessarProdutoServiceException;
 import com.grupo16.carrinhoservice.gateway.ProdutoServiceGateway;
 import com.grupo16.carrinhoservice.gateway.http.produto.json.ProdutoJson;
@@ -18,12 +22,21 @@ public class ProdutoServiceOpenFeignGateway implements ProdutoServiceGateway {
 	private ProdutoServiceFeignClient produtoServiceFeignClient;
 	
 	@Override
-	public ProdutoJson obterPorId(Long id) {
+	public List<Item> obterPorId(List<Long> ids) {
 	try {
 		
-		ProdutoJson produtoJson = produtoServiceFeignClient.obterPorId(id);
+		List<Item> itens = new ArrayList<>();
+		
+		ids.stream().forEach(id -> {
+			ProdutoJson produtoJson = produtoServiceFeignClient.obterPorId(id);
+			itens.add(Item.builder()
+					.idProduto(produtoJson.getId())
+					.precoUnitario(produtoJson.getPrecoUnitario())
+					.build());
+		});
+		
 
-		return null;
+		return itens;
 	} catch (Exception e) {
 		log.error(e.getMessage(), e);
 		if(e instanceof FeignException feignException) {
