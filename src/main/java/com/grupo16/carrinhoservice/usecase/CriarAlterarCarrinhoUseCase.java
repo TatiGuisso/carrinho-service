@@ -39,7 +39,7 @@ public class CriarAlterarCarrinhoUseCase {
 	}
 
 	public void inativar(Long idCarrinho) {
-		Carrinho carrinhoEncontrado = obterCarrinhoUseCase.obterPorIdEStatus(idCarrinho, Status.ATIVO);
+		Carrinho carrinhoEncontrado = obterCarrinhoUseCase.obterPorId(idCarrinho);
 		
 		Carrinho carrinho = Carrinho.builder()
 				.id(idCarrinho)

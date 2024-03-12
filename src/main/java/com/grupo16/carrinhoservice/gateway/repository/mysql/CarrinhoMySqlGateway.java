@@ -78,12 +78,11 @@ public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 	}
 	
 	@Override
-	public Optional<Carrinho> obterPorIdEStatus(Long idCarrinho, Status status) {
+	public Optional<Carrinho> obterPorId(Long idCarrinho) {
 		try {
-			Integer statusInt = getByEnum(status);
 			Optional<Carrinho> carrinhoOp = Optional.empty();
 			
-			Optional<CarrinhoEntity> carrinhoEntityOp = carrinhoRepository.findByIdAndStatus(idCarrinho, statusInt);
+			Optional<CarrinhoEntity> carrinhoEntityOp = carrinhoRepository.findById(idCarrinho);
 			
 			carrinhoOp = checarSeCarrinhoEstaPresente(carrinhoOp, carrinhoEntityOp);
 			

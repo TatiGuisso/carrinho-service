@@ -76,7 +76,7 @@ public class CarrinhoController {
 	public CarrinhoJson obter(@PathVariable(name = "id") Long idCarrinho) {
 		log.trace("Start idCarrinho={}", idCarrinho);
 
-		Carrinho carrinho = obterCarrinhoUseCase.obterPorIdEStatus(idCarrinho, Status.ATIVO);
+		Carrinho carrinho = obterCarrinhoUseCase.obterPorId(idCarrinho);
 		
 		CarrinhoJson carrinhoJson = new CarrinhoJson(carrinho);
 		

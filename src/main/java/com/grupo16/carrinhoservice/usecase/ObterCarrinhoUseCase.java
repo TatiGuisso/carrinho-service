@@ -32,9 +32,9 @@ public class ObterCarrinhoUseCase {
 		return carrinhoOp.get();
 	}
 
-	public Carrinho obterPorIdEStatus(Long idCarrinho, Status status ) {
+	public Carrinho obterPorId(Long idCarrinho) {
 		
-		Optional<Carrinho> carrinhoOp = carrinhoRepositoryGateway.obterPorIdEStatus(idCarrinho, status);
+		Optional<Carrinho> carrinhoOp = carrinhoRepositoryGateway.obterPorId(idCarrinho);
 		
 		if(carrinhoOp.isEmpty()) {
 			log.warn("Carrinho do usuario não encontrado. idCarrinho={}", idCarrinho);
