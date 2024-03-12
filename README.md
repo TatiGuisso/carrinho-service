@@ -22,7 +22,9 @@ O Carrinho Service é um sistema de gerenciamento de carrinho de compras que ofe
 ## Instruções
 
 - Maven: Para build do projeto. **Para buildar:** mvn clean install
-- Foi utilizado Lombok, Validation e MongoDB, portanto é necessário adicionar os plugins na IDE
+- Foi utilizado Lombok, Validation e MySql, portanto é necessário adicionar os plugins na IDE
+- Antes de iniciar a instância do microserviço Carrinho-Service, é necessário garantir que os seguintes serviços estejam operacionais:
+	* Service Discovery  &  API Gateway
 
 <p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
 
@@ -30,14 +32,17 @@ O Carrinho Service é um sistema de gerenciamento de carrinho de compras que ofe
 
 ### Funcionalidades de Carrinho Service
 
->[ Base URL: http://localhost:8080 ]
+>[ Base URL: http://localhost:porta ] 
 
-O CRUD de video contempla as funcionalidades de criar, atualizar, listar e excluir videos.
+`Substitua <porta> pela porta atribuída dinamicamente pelo ambiente.`
+
+
+Escolhido 
 
 <p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
 
 ### ``POST``  
-`*Para cadastrar Video`
+`*Para criar carrinho`
 
 ```
 	/carrinhos
