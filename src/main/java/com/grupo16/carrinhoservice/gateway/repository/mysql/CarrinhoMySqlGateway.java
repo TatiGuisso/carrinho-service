@@ -126,12 +126,4 @@ public class CarrinhoMySqlGateway implements CarrinhoRepositoryGateway {
 			}
 		}
 	}
-	
-	private Integer getByEnum(Status status) {
-		if(Status.ATIVO.equals(status)) {
-			return 0;
-		}
-		return 1;
-	}
-
 }
