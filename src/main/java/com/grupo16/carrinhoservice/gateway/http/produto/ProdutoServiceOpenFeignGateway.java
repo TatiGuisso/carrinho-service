@@ -36,7 +36,7 @@ public class ProdutoServiceOpenFeignGateway implements ProdutoServiceGateway {
 				ProdutoJson produtoJson = produtoServiceFeignClient.obterPorId(id);
 				itens.add(Item.builder()
 						.idProduto(produtoJson.getId())
-						.precoUnitario(produtoJson.getPrecoUnitario())
+						.precoUnitario(produtoJson.getPreco())
 						.build());
 			});
 

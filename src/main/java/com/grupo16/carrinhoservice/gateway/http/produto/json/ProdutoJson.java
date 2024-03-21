@@ -8,6 +8,6 @@ import lombok.Getter;
 public class ProdutoJson {
 	
 	private Long id;
-	private Double precoUnitario;
+	private double preco;
 
 }
