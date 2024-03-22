@@ -228,7 +228,7 @@ curl --location --request PUT 'http://localhost:8081/carrinhos/31'
 </details>
 <p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
 
-![](file:///home/tati/Documentos/develop/curso/FIAP/projects/tc-fase5/carrinho-service/src/main/resources/static/carrinho-service.png)
+![](https://github.com/TatiGuisso/carrinho-service/blob/feature/fase5/src/main/resources/static/carrinho-service.png)
 
 
 
