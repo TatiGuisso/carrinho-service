@@ -16,7 +16,8 @@ O Carrinho Service é um sistema de gerenciamento de carrinho de compras que ofe
 - Maven: Para build do projeto. **Para buildar:** mvn clean install
 - Foi utilizado Lombok, Validation e MySql, portanto é necessário adicionar os plugins na IDE
 - Antes de iniciar a instância do microserviço Carrinho-Service, é necessário garantir que os seguintes serviços estejam operacionais:
-	* Service Discovery  &  API Gateway
+	* **Service Discovery** &
+	* **API Gateway**
 
 <p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
 
@@ -228,6 +229,26 @@ curl --location --request PUT 'http://localhost:8081/carrinhos/31'
 
 </details>
 <p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
+
+---------
+
+<a name="tecnologias"></a>
+## 📍️ Tecnologias
+
+- A API foi construída em Java 17 utilizando Spring Framework 3.2.3
+- Padrão REST na construção das rotas e retornos
+- SLF4J para registro de logs
+- Utilização de código limpo e princípios **SOLID**
+- Boas práticas da Linguagem/Framework
+- Clean architecture
+- Banco de Dados MySql
+- Para facilitar a comunicação entre microserviços, o projeto utiliza o Spring Cloud Feign. 
+- Service Discovery
+- API Gateway
+
+<p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
+
+---------
 
 ### Ilustração do MS Carrinho Service
 
