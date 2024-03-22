@@ -205,7 +205,7 @@ curl --location --request PUT 'http://localhost:8081/carrinhos/31/1' \
 ### ``PUT``
 `*Para inativar carrinho`
 
-Após fechado o pedido e finalizado o pagamento dos itens, o carrinho será inativado. 
+Após fechado o pedido e finalizado o pagamento do valor total do carrinho, o carrinho será inativado. 
 Este endpoint é exclusivo do microserviço pedido-service.
 
 ```

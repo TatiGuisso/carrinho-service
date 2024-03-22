@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.grupo16.carrinhoservice.domain.Carrinho;
 import com.grupo16.carrinhoservice.domain.Status;
 import com.grupo16.carrinhoservice.gateway.CarrinhoRepositoryGateway;
+import com.grupo16.carrinhoservice.usecase.exception.CarrinhoNaoEncontradoException;
 
 import lombok.AllArgsConstructor;
 
@@ -27,6 +28,10 @@ public class CriarAlterarCarrinhoUseCase {
 
 	public void alterar(Carrinho carrinho) {
 		Carrinho carrinhoEncontrado = obterCarrinhoUseCase.obterPorIdAndIdUsuario(carrinho);
+		
+		if(carrinhoEncontrado.getStatus().equals(Status.INATIVO)) {
+			throw new CarrinhoNaoEncontradoException();
+		}
 		
 		Carrinho carrinhoAlterado = Carrinho.builder()
 				.id(carrinhoEncontrado.getId())
