@@ -8,7 +8,7 @@ O Carrinho Service é um sistema de gerenciamento de carrinho de compras que ofe
 ## Sumário
 * [Instruções](#instrucoes)
 * [Funcionalidades de Carrinho Service](#funcionalidades-de-carrinho-service)
-* [Ilustração de Carrinho Service](#ilustracao-de-carrinho-service)
+* [Ilustração do MS Carrinho Service](#ilustração-do-ms-carrinho-service)
 
 
 ## Instruções
@@ -229,7 +229,7 @@ curl --location --request PUT 'http://localhost:8081/carrinhos/31'
 </details>
 <p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
 
-### Ilustração de Carrinho Service
+### Ilustração do MS Carrinho Service
 
 ![](https://github.com/TatiGuisso/carrinho-service/blob/feature/fase5/src/main/java/document/carrinho-service.png)
 
