@@ -8,6 +8,7 @@ O Carrinho Service é um sistema de gerenciamento de carrinho de compras que ofe
 ## Sumário
 * [Instruções](#instruções)
 * [Funcionalidades de Carrinho Service](#funcionalidades-de-carrinho-service)
+* [Ilustração de Carrinho Service](#ilustração-de-carrinho-service)
 
 
 ## Instruções
