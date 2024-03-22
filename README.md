@@ -8,15 +8,6 @@ O Carrinho Service é um sistema de gerenciamento de carrinho de compras que ofe
 ## Sumário
 * [Instruções](#instruções)
 * [Funcionalidades de Carrinho Service](#funcionalidades-de-carrinho-service)
-* [Upload de Video](#upload-de-video)
-* [Pesquisa Videos](#pesquisa-videos)
-* [Obter Url](#obter-url)
-* [Favoritar Video](#favoritar-video)
-* [Recomendação de Videos](#recomendacao-de-videos)
-* [Estatística](#estatistica)
-* [Usuário](#usuario)
-* [Tecnologias](#tecnologias)
-* [Desafios](#desafios)
 
 
 ## Instruções
@@ -37,7 +28,7 @@ O Carrinho Service é um sistema de gerenciamento de carrinho de compras que ofe
 `Substitua <porta> pela porta atribuída dinamicamente pelo ambiente.`
 
 
-Quando um usuário seleciona um produto e especifica a quantidade desejada, ele pode utilizar este endpoint para criar um novo carrinho de compras, contendo os itens selecionados e suas respectivas quantidades. 
+Quando um usuário seleciona um produto e especifica a quantidade desejada, utilizamos este endpoint para criar um novo carrinho de compras, contendo os itens selecionados e suas respectivas quantidades. 
 
 <p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
 
@@ -79,29 +70,29 @@ curl --location 'http://localhost:8081/carrinhos/1' \
 
 ```
 {
-    "idCarrinho": 9,
-    "idUsuario": 15,
+    "idCarrinho": 31,
+    "idUsuario": 1,
     "itens": [
         {
-            "idItem": 25,
-            "idProduto": 67,
-            "quantidade": 1,
-            "precoUnitario": 31
+            "idItem": 117,
+            "idProduto": 1,
+            "quantidade": 2,
+            "precoUnitario": 90.0
         },
         {
-            "idItem": 26,
-            "idProduto": 33,
-            "quantidade": 1,
-            "precoUnitario": 18
+            "idItem": 118,
+            "idProduto": 2,
+            "quantidade": 3,
+            "precoUnitario": 30.0
         },
         {
-            "idItem": 27,
-            "idProduto": 28,
-            "quantidade": 1,
-            "precoUnitario": 25
+            "idItem": 119,
+            "idProduto": 3,
+            "quantidade": 5,
+            "precoUnitario": 15.0
         }
     ],
-    "valorTotal": 74
+    "valorTotal": 345.0
 }
 ```
 
@@ -120,7 +111,7 @@ curl --location 'http://localhost:8081/carrinhos/1' \
   <summary>Exemplo Request:</summary>
 
 ```
-curl --location 'http://localhost:8081/carrinhos/13'
+curl --location 'http://localhost:8081/carrinhos/31'
 ```
 </details>
 
@@ -132,12 +123,29 @@ curl --location 'http://localhost:8081/carrinhos/13'
 
 ```
 {
-    "id": "65a5b14ba6bf7a1d75bbc83d",
-    "titulo": "Robocop",
-    "descricao": "Policial fatalmente ferido é usado como cobaia por uma empresa de tecnologia robótica",
-    "dataPublicacao": "2024-01-08",
-    "quantidadeVisualizacao": 2,
-    "categoria": "FICCAO"
+    "idCarrinho": 31,
+    "idUsuario": 1,
+    "itens": [
+        {
+            "idItem": 117,
+            "idProduto": 1,
+            "quantidade": 2,
+            "precoUnitario": 90.0
+        },
+        {
+            "idItem": 118,
+            "idProduto": 2,
+            "quantidade": 3,
+            "precoUnitario": 30.0
+        },
+        {
+            "idItem": 119,
+            "idProduto": 3,
+            "quantidade": 5,
+            "precoUnitario": 15.0
+        }
+    ],
+    "valorTotal": 345.0
 }
 ```
 
@@ -145,8 +153,8 @@ curl --location 'http://localhost:8081/carrinhos/13'
 
 ```
 {
-    "code": "tc.videoNaoEncontrado",
-    "message": "Video não encontrado."
+    "code": "carrinho.arrinhoNaoEncontrado",
+    "message": "Carrinho não encontrado."
 }
 ```
 </details>
@@ -156,6 +164,8 @@ curl --location 'http://localhost:8081/carrinhos/13'
 ### ``PUT``
 `*Para alteração de dados do carrinho`
 
+Após a criação do carrinho, caso o mesmo ainda esteja em aberto, ou seja, o pagamento ainda não foi efetuado, o usuário consegue alterar itens e quantidade.
+
 ```
 	/carrinhos/{id}/{idUsuario}
 ```
@@ -164,29 +174,39 @@ curl --location 'http://localhost:8081/carrinhos/13'
   <summary>Exemplo Request:</summary>
 
 ```
-curl --location --request PUT 'http://localhost:8081/carrinhos/14/1' \
+curl --location --request PUT 'http://localhost:8081/carrinhos/31/1' \
 --header 'Content-Type: application/json' \
 --data '[
     {
-        "idProduto": 10,
-        "quantidade": 3
-    },
-    {
-        "idProduto": 20,
-        "quantidade": 1
-    },
-    {
-        "idProduto": 30,
+        "idProduto": 1,
         "quantidade": 2
+    },
+    {
+        "idProduto": 3,
+        "quantidade": 20
+    },
+     {
+        "idProduto": 4,
+        "quantidade": 1
     }
 ]'
 ```
 </details>
 
+<details>
+  <summary>Exemplo Responses:</summary>
+
+200 - _OK_
+
+</details>
+
 <p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
 
 ### ``PUT``
-`*Para inativar carrinho após fechar pedido e finalizar o pagamento`
+`*Para inativar carrinho`
+
+Após fechado o pedido e finalizado o pagamento dos itens, o carrinho será inativado. 
+Este endpoint é exclusivo do microserviço pedido-service.
 
 ```
 	/carrinhos/{id}
@@ -196,27 +216,19 @@ curl --location --request PUT 'http://localhost:8081/carrinhos/14/1' \
   <summary>Exemplo Request:</summary>
 
 ```
-curl --location --request PUT 'http://localhost:8081/carrinhos/14'
+curl --location --request PUT 'http://localhost:8081/carrinhos/31'
 ```
 </details>
 
+<details>
+  <summary>Exemplo Responses:</summary>
 
+200 - _OK_
+
+</details>
 <p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
 
+![](file:///home/tati/Documentos/develop/curso/FIAP/projects/tc-fase5/carrinho-service/src/main/resources/static/carrinho-service.png)
 
----------
-<a name="tecnologias"></a>
-## 📍️ Tecnologias
-
-- As API's foram construídas em Java 17 utilizando Spring Framework 3.2.1
-- Padrão REST na construção das rotas e retornos
-- SLF4J para registro de logs
-- Utilização de código limpo e princípios **SOLID**
-- Boas práticas da Linguagem/Framework
-- Clean architecture
-- Banco de Dados MongoDB
-- JUnit e Mockito
-
-<p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
 
 
