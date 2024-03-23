@@ -15,7 +15,7 @@ O Carrinho Service é um sistema de gerenciamento de carrinho de compras que ofe
 
 - Maven: Para build do projeto. **Para buildar:** mvn clean install
 - Foi utilizado Lombok, Validation e MySql, portanto é necessário adicionar os plugins na IDE
-- Antes de iniciar a instância deste Microserviço, é necessário garantir que os seguintes serviços estejam operacionais para garantir a operação adequada:</br>
+- Antes de iniciar a instância dos Microserviços, é necessário garantir que os seguintes serviços estejam operacionais para garantir a operação adequada:</br>
 
 	* **Service Discovery** - Inicie o Service Discovery. Execute e verifique se pelo menos uma instância do Service Discovery está operacional.</br></br>
 	
