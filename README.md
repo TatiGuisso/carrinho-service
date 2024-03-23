@@ -235,7 +235,7 @@ curl --location --request PUT 'http://localhost:8081/carrinhos/31'
 <a name="tecnologias"></a>
 ## 📍️ Tecnologias
 
-- A API foi construída em Java 17 utilizando Spring Framework 3.2.3
+- A API foi construída em Java 18 utilizando Spring Framework 3.2.3
 - Padrão REST na construção das rotas e retornos
 - SLF4J para registro de logs
 - Utilização de código limpo e princípios **SOLID**
