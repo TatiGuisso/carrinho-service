@@ -255,7 +255,4 @@ curl --location --request PUT 'http://localhost:8081/carrinhos/31'
 
 ### Ilustração do MS Carrinho Service
 
-![](https://github.com/TatiGuisso/carrinho-service/blob/feature/fase5/src/main/java/document/carrinho-service.png)
-
-
-
+![carrinho-service.png](src%2Fmain%2Fjava%2Fdocument%2Fcarrinho-service.png)
