@@ -48,6 +48,7 @@ Quando um usuário seleciona um produto e especifica a quantidade desejada, util
 
 ```
 curl --location 'http://localhost:8081/carrinhos/1' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyUm9sZSI6IlVTRVIiLCJ1c2VySWQiOjV9.04nOIr_evkKT41_HB5RcZc-5Zd2dE-X1LruUbn-BQ9A' \
 --header 'Content-Type: application/json' \
 --data '[
     {
@@ -117,6 +118,7 @@ curl --location 'http://localhost:8081/carrinhos/1' \
 
 ```
 curl --location 'http://localhost:8081/carrinhos/31'
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyUm9sZSI6IlVTRVIiLCJ1c2VySWQiOjV9.04nOIr_evkKT41_HB5RcZc-5Zd2dE-X1LruUbn-BQ9A'
 ```
 </details>
 
@@ -180,6 +182,7 @@ Após a criação do carrinho, caso o mesmo ainda esteja em aberto, ou seja, o p
 
 ```
 curl --location --request PUT 'http://localhost:8081/carrinhos/31/1' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyUm9sZSI6IlVTRVIiLCJ1c2VySWQiOjV9.04nOIr_evkKT41_HB5RcZc-5Zd2dE-X1LruUbn-BQ9A' \
 --header 'Content-Type: application/json' \
 --data '[
     {
@@ -222,6 +225,7 @@ Após fechado o pedido e finalizado o pagamento do valor total do carrinho, o ca
 
 ```
 curl --location --request PUT 'http://localhost:8081/carrinhos/31'
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyUm9sZSI6IlVTRVIiLCJ1c2VySWQiOjV9.04nOIr_evkKT41_HB5RcZc-5Zd2dE-X1LruUbn-BQ9A'
 ```
 </details>
 
